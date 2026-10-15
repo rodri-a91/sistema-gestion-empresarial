@@ -22,14 +22,14 @@ class Articulo:
     @property
     def existencias(self) -> int:
         return self._existencias
-    
+
     @property
     def valor_en_almacen(self) -> float:
-        return self.precio * self.existencias
+        return self.precio * self._existencias
 
     def aplicar_variacion(self, variacion: int) -> bool:
         resultado: int = self._existencias + variacion
-        
+
         if resultado < 0:
             return False
         else:
@@ -38,7 +38,6 @@ class Articulo:
 
     def __repr__(self) -> str:
         return f"Artículo con código {self.sku} y {self._existencias} existencias"
-        
 
 
 def procesar_movimientos(
@@ -50,12 +49,14 @@ def procesar_movimientos(
             incidencias.append(f"El artículo {m.sku} no existe")
         elif not inventario[m.sku].aplicar_variacion(m.variacion):
             incidencias.append(f"No hay existencias de {m.sku}")
-        
+
     return incidencias
 
 
 def skus_bajo_minimo(inventario: dict[str, Articulo], minimo: int) -> list[str]:
-    return [sku for sku, articulo in inventario.items() if articulo.existencias <= minimo]
+    return [
+        sku for sku, articulo in inventario.items() if articulo.existencias <= minimo
+    ]
 
 
 def valor_por_sku(inventario: dict[str, Articulo]) -> dict[str, float]:
@@ -79,6 +80,5 @@ movimientos = [
 print(procesar_movimientos(inventario, movimientos))
 for sku, articulo in inventario.items():
     print(f"{sku}: {articulo.existencias}")
-print(skus_bajo_minimo(inventario,5))
+print(skus_bajo_minimo(inventario, 5))
 print(valor_por_sku(inventario))
-

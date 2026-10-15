@@ -17,3 +17,11 @@ def indexar_por_id(datos):
 
 print(pedidos_relevantes(ventas, 200))
 print(indexar_por_id(ventas))
+
+class StockArticulo:
+    def __init__(self, sku: str, existencias: int):
+        self.sku = sku              # Atributo público
+        self._existencias = existencias  # Atributo protegido (por convención)
+
+    def mostrar_info(self):
+        return f"SKU: {self.sku} | Existencias: {self._existencias}"
