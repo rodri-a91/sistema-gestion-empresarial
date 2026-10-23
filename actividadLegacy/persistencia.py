@@ -5,11 +5,9 @@ from dominio import Factura
 
 class RepositorioFactura(ABC):
     @abstractmethod
-    def guardar(self, factura: Factura) -> None:
-        ...
+    def guardar(self, factura: Factura) -> None: ...
     @abstractmethod
-    def buscar(self, numero: str) -> Factura | None:
-        ...
+    def buscar(self, numero: str) -> Factura | None: ...
 
 
 class RepositorioMemoria(RepositorioFactura):
@@ -20,7 +18,7 @@ class RepositorioMemoria(RepositorioFactura):
         self.facturas[factura.numero] = factura
 
     def buscar(self, numero: str) -> Factura | None:
-        return self._facturas.get(numero)
+        return self.facturas.get(numero)
 
 
 class RepositorioLista(RepositorioFactura):

@@ -15,14 +15,15 @@ class LineaFactura:
 
     @property
     def subtotal(self):
-        return round(self.unidades*self.precio_unitario, 2)
+        return round(self.unidades * self.precio_unitario, 2)
+
 
 @dataclass(frozen=True)
 class Factura:
     numero: str
     cliente: str
     cif: str
-    linea: tuple[LineaFactura,...]
+    linea: tuple[LineaFactura, ...]
 
     def __post_init__(self) -> None:
         validar_cif(self.cif)
@@ -32,7 +33,5 @@ class Factura:
             raise ValueError("Línea de factura vacía")
 
     @property
-    def base_imposible(self) -> float:
+    def base_imponible(self) -> float:
         return round(sum(linea.subtotal for linea in self.linea), 2)
-
-    
